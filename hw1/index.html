@@ -82,7 +82,7 @@
         SubMenu.prototype.render = function () {
             var res = '<li>';
 
-            res += new Menu(this.id, this.className, this.items).render();
+            res += Menu.prototype.render.call(this);
 
             res += '</li>';
 

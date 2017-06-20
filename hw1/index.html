@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <script>
+        function Container() {
+            this.id = '';
+            this.className = '';
+            this.htmlCode = '';
+        }
+
+        Container.prototype.render = function () {
+            return this.htmlCode;
+        };
+
+        //домашнее задание 1)------------------------------------------------------
+
+        Container.prototype.remove = function () {
+            var elem = document.getElementById(this.id);
+            if (elem !== null) {
+                elem.parentNode.removeChild(elem);
+            }
+
+        };
+
+        //-------------------------------------------------------------------------
+
+        function Menu(myId, myClass, myItems) {
+            Container.call(this);
+            this.id = myId;
+            this.className = myClass;
+            this.items = myItems;
+        }
+
+        Menu.prototype = Object.create(Container.prototype);
+        Menu.prototype.constructor = Menu;
+
+        Menu.prototype.render = function () {
+            var res = '<ul id="'+this.id+'" class="'+this.className+'">';
+
+            for (var item in this.items)
+            {
+                if(this.items[item] instanceof MenuItem){
+                    res += this.items[item].render();
+                }
+                if(this.items[item] instanceof SubMenu){
+                    res += this.items[item].render();
+                }
+            }
+            res += '</ul>';
+            return res;
+        };
+
+        function MenuItem(myHref, myName, myId) {
+            Container.call(this);
+            this.className = 'menu-item';
+            this.href = myHref;
+            this.name = myName;
+            this.id = myId;
+        }
+
+        MenuItem.prototype = Object.create(Container.prototype);
+        MenuItem.prototype.constructor = MenuItem;
+
+        MenuItem.prototype.render = function () {
+            return '<li id="'+this.id+'"><a href="'+this.href+'">'+this.name+'</a></li>';
+        };
+
+        //домашнее задание 2)---------------------------------------------------
+
+        function SubMenu(myId, myClass, myItems){
+           Menu.call(this);
+           this.id = myId;
+           this.className = myClass;
+           this.items = myItems;
+        }
+
+        SubMenu.prototype = Object.create(Menu.prototype);
+        SubMenu.prototype.constructor = SubMenu;
+
+        SubMenu.prototype.render = function () {
+            var res = '<li>';
+
+            res += new Menu(this.id, this.className, this.items).render();
+
+            res += '</li>';
+
+            return res;
+        };
+
+        //----------------------------------------------------------------------
+
+
+        var menu = new Menu('my_menu', 'my_menu', [
+            new MenuItem('/', 'Главная', 'mi1'),
+            new MenuItem('/about/', 'О нас', 'mi2'),
+            new MenuItem('/contacts', 'Контакты', 'mi3')
+        ]);
+
+        var menu2 = new Menu('my_menu2', 'my_menu', [
+            new MenuItem('/', 'Главная', 'mi4'),
+            new SubMenu('my_submenu1', 'my_submenu', [
+                new MenuItem('/films/', 'Фильмы', 'mi5'),
+                new MenuItem('/cartoons/', 'Мультфильмы', 'mi6')
+            ]),
+            new SubMenu('my_submenu2', 'my_submenu', [
+                new MenuItem('/blog/', 'Блог', 'mi7'),
+                new MenuItem('/forum/', 'Форум', 'mi8')
+            ]),
+            new MenuItem('/about/', 'О нас', 'mi9'),
+            new MenuItem('/contacts', 'Контакты', 'mi10')
+        ]);
+
+
+    </script>
+</head>
+<body>
+<script>
+    document.write(menu.render());
+    document.write(menu2.render());
+    menu2.items[2].items[1].remove();
+</script>
+</body>
+</html>

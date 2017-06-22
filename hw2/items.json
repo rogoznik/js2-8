@@ -1,0 +1,14 @@
+[
+  {"href": "/", "title": "AJAX"},
+  {"id": "catalog", "title": "Каталог", "subMenu": [
+    {"id": "prints", "title": "Принтеры", "subMenu": [
+      {"href": "/catalog/prints/laser/", "title": "Лазерные"},
+      {"href": "/catalog/prints/ink-jet/", "title": "Струйные"}
+    ]},
+    {"href": "/catalog/notebooks", "title": "Ноутбуки"}
+  ]},
+  {"href": "/pa/", "title": "Личный кабинет"},
+  {"href": "/promo/", "title": "Промоакции"},
+  {"href": "/about/", "title": "О нас"},
+  {"href": "/contacts/", "title": "Контакты"}
+]

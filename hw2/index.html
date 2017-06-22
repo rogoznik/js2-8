@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <style>
+        .gallery__item {
+            display: inline-block;
+            margin: 10px;
+        }
+    </style>
     <script>
         function Container() {
             this.id = '';
@@ -34,6 +40,13 @@
                 }
                 if(this.items[item] instanceof SubMenu){
                     res += this.items[item].render();
+                } else if (!(this.items[item] instanceof MenuItem) && !(this.items[item] instanceof SubMenu)){
+                    if (this.items[item].subMenu){
+                        res += new SubMenu(this.items[item].id,
+                            'subMenu', this.items[item].subMenu, this.items[item].title).render();
+                    } else {
+                        res += new MenuItem(this.items[item].href, this.items[item].title).render();
+                    }
                 }
             }
             res += '</ul>';
@@ -76,6 +89,52 @@
         };
 
 
+        function Gallery(myId, myItems) {
+            Container.call(this);
+            this.className = 'gallery';
+            this.id = myId;
+            this.items = myItems;
+        }
+
+        Gallery.prototype = Object.create(Container.prototype);
+        Gallery.prototype.constructor = Gallery;
+
+        Gallery.prototype.render = function () {
+            var res = '<div id="'+this.id+'" class="'+this.className+'">';
+            
+            for (var item in this.items){
+                if (this.items[item] instanceof GalleryItem) {
+                    res += this.items[item].render();
+                }
+            }
+
+            res += '</div>';
+
+            return res;
+        };
+
+        function GalleryItem(myId, srcMin, srcFull) {
+            Container.call(this);
+            this.className = 'gallery__item';
+            this.id = myId;
+            this.srcMin = srcMin;
+            this.srcFull = srcFull;
+        }
+        GalleryItem.prototype = Object.create(Container.prototype);
+        GalleryItem.prototype.constructor = GalleryItem;
+
+        GalleryItem.prototype.render = function () {
+            var res = '<a href="';
+
+            res += this.srcFull + '" class="' + this.className + '">';
+            res += '<img src="'+this.srcMin+'" alt="">';
+
+            res += '</a>';
+
+            return res;
+        };
+
+
         window.onload = function () {
             document.getElementById('btn').addEventListener('click', function () {
                 var xhr = new XMLHttpRequest();
@@ -94,7 +153,6 @@
                         for (var i = 0; i < myItems.length; i++)
                         {
                             if (myItems[i].subMenu) {
-                                console.log(myItems[i].id);
                                 items.push(new SubMenu(myItems[i].id, 'subMenu', myItems[i].subMenu, myItems[i].title));
                             } else {
                                 items.push(new MenuItem(myItems[i].href, myItems[i].title));
@@ -109,11 +167,40 @@
                     }
                 }
             });
+
+            document.getElementById('btn2').addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', './gallery.json', true);
+                xhr.send();
+
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState !=4) return;
+
+                    if(xhr.status != 200){
+                        console.log('Error', xhr.status, xhr.statusText);
+                    } else {
+                        var items = [];
+
+                        var myItems = JSON.parse(xhr.responseText);
+                        for (var i = 0; i < myItems.length; i++)
+                        {
+                            items.push(new GalleryItem('gi'+i, myItems[i].srcMin, myItems[i].srcFull));
+                        }
+
+                        var gallery = new Gallery('gallery', items);
+
+                        var galleryWrapper = document.getElementById('gallery-wrapper');
+                        galleryWrapper.innerHTML = gallery.render();
+                    }
+                }
+            });
         }
     </script>
 </head>
 <body>
 <button id="btn">Получить пункты меню и добавить меню на страницу</button>
+<button id="btn2">Получить содержимое галереи и добавить на страницу</button>
 <div id="menu"></div>
+<div id="gallery-wrapper"></div>
 </body>
 </html>

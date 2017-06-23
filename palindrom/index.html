@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Палиндром</title>
     <script>
-        function isPalindrom(a){a=a.replace(/[^a-z]/gi,'').toLowerCase();return a===a.split('').reverse().join('');}
+        function isPalindrom(a){a=a.toLowerCase().replace(/\W/g,'');return a===a.split('').reverse().join('');}
 
 
         console.log(isPalindrom('A car, a man, a maraca'));

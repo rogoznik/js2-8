@@ -40,13 +40,7 @@
                 }
                 if(this.items[item] instanceof SubMenu){
                     res += this.items[item].render();
-                } else if (!(this.items[item] instanceof MenuItem) && !(this.items[item] instanceof SubMenu)){
-                    if (this.items[item].subMenu){
-                        res += new SubMenu(this.items[item].id,
-                            'subMenu', this.items[item].subMenu, this.items[item].title).render();
-                    } else {
-                        res += new MenuItem(this.items[item].href, this.items[item].title).render();
-                    }
+//
                 }
             }
             res += '</ul>';
@@ -147,59 +141,58 @@
                     if(xhr.status != 200){
                         console.log('Error', xhr.status, xhr.statusText);
                     } else {
-                        var items = [];
-
-                        var myItems = JSON.parse(xhr.responseText);
-                        for (var i = 0; i < myItems.length; i++)
-                        {
-                            if (myItems[i].subMenu) {
-                                items.push(new SubMenu(myItems[i].id, 'subMenu', myItems[i].subMenu, myItems[i].title));
-                            } else {
-                                items.push(new MenuItem(myItems[i].href, myItems[i].title));
-                            }
-
-                        }
-
-                        var menu1 = new Menu('my', 'my', items);
+                        var menu1 = new Menu('my', 'my', r(JSON.parse(xhr.responseText)));
 
                         var menuDom = document.getElementById('menu');
                         menuDom.innerHTML = menu1.render();
                     }
+                };
+                var xhr2 = new XMLHttpRequest();
+                xhr2.open('GET', './gallery.json', true);
+                xhr2.send();
+                xhr2.onreadystatechange = function () {
+                    if (xhr2.readyState != 4) return;
+
+                    if (xhr2.status != 200) {
+                        console.log('Error', xhr2.status, xhr2.statusText);
+                    } else {
+                        galleryShow(JSON.parse(xhr2.responseText))
+                    }
                 }
             });
 
-            document.getElementById('btn2').addEventListener('click', function () {
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', './gallery.json', true);
-                xhr.send();
-
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState !=4) return;
-
-                    if(xhr.status != 200){
-                        console.log('Error', xhr.status, xhr.statusText);
+            function r(objFromJSON) {
+                var items = [];
+                for (var i = 0; i < objFromJSON.length; i++)
+                {
+                    if (objFromJSON[i].subMenu) {
+                        items.push(new SubMenu(objFromJSON[i].id, 'subMenu', r(objFromJSON[i].subMenu), objFromJSON[i].title));
                     } else {
+                        items.push(new MenuItem(objFromJSON[i].href, objFromJSON[i].title));
+                    }
+
+                }
+                return items;
+            }
+
+            function galleryShow(objectFromJSON) {
                         var items = [];
 
-                        var myItems = JSON.parse(xhr.responseText);
-                        for (var i = 0; i < myItems.length; i++)
+                        for (var i = 0; i < objectFromJSON.length; i++)
                         {
-                            items.push(new GalleryItem('gi'+i, myItems[i].srcMin, myItems[i].srcFull));
+                            items.push(new GalleryItem('gi'+i, objectFromJSON[i].srcMin, objectFromJSON[i].srcFull));
                         }
 
                         var gallery = new Gallery('gallery', items);
 
                         var galleryWrapper = document.getElementById('gallery-wrapper');
                         galleryWrapper.innerHTML = gallery.render();
-                    }
-                }
-            });
+            }
         }
     </script>
 </head>
 <body>
-<button id="btn">Получить пункты меню и добавить меню на страницу</button>
-<button id="btn2">Получить содержимое галереи и добавить на страницу</button>
+<button id="btn">Получить пункты меню и содержимое галереи и добавить на страницу</button>
 <div id="menu"></div>
 <div id="gallery-wrapper"></div>
 </body>

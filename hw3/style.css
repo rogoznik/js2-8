@@ -1,0 +1,26 @@
+.feedback-form {
+    padding: 10px;
+    display: inline-block;
+}
+.input-wrapper {
+    width: 300px;
+    margin-bottom: 20px;
+}
+input {
+    border: 2px solid gray;
+    border-radius: 4px;
+    padding: 5px;
+}
+.true-validate {
+    border-color: #5fba7d;
+}
+.false-validate {
+    border-color: red;
+}
+.error {
+    border: 2px solid red;
+    padding: 5px;
+    background: indianred;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>RegExp</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
-$END$
+    <div class="feedback-form">
+        <div id="block-errors"></div>
+        <div class="input-wrapper"><label for="name">Имя: </label><input type="text" id="name"></div>
+        <div class="input-wrapper"><label for="phone">Телефон: </label><input type="text" id="phone" placeholder="+7(000)000-0000"></div>
+        <div class="input-wrapper"><label for="email">E-mail: </label><input type="text" id="email"></div>
+        <div class="input-wrapper"><label for="text"> Текст</label><br>
+            <textarea name="" id="" cols="30" rows="10" class="text" id="text"></textarea></div>
+        <button class="btn-send" id="btn-send">Отправить</button>
+    </div>
 </body>
 </html>

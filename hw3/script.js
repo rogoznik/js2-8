@@ -1,19 +1,6 @@
 var str = "'asdasdsad 'asdsadasd' asdsad sad'a sdasdsa'";
 function replacer(str) {
-    var res = '';
-    if (/^'/.test(str)) {
-        res = '"';
-    }
-    if (/'$/.test(str)) {
-        res = '"';
-    }
-    if (/\s'\w/.test(str)) {
-        res = ' "'+str[2];
-    }
-    if (/\w'\s/.test(str)) {
-        res = str[0]+'" ';
-    }
-    return res;
+    return str.replace("'", '"');
 }
 console.log(str.replace(/(^')|('$)|(\s'\w)|(\w'\s)/gm, replacer));
 

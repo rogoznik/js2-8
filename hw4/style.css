@@ -1,0 +1,60 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    padding: 2px;
+}
+li:hover {
+    cursor: pointer;
+    background: #61AF6A;
+}
+
+.tab {
+    display: inline-block;
+    background: #61AF6A;
+    color: #fff;
+    padding: 10px 7px;
+}
+.tab:not(.active-tab) {
+    cursor: pointer;
+}
+.tab:not(.active-tab):hover {
+    background: #7DCA86;
+}
+.active-tab {
+    background: #fff;
+    color: #000;
+}
+.text {
+    position: relative;
+    top: -2px;
+    width: 300px;
+    border: 2px solid #61AF6A;
+}
+.feedback-form {
+    padding: 10px;
+    display: inline-block;
+}
+.input-wrapper {
+    width: 300px;
+    margin-bottom: 20px;
+    position: relative;
+}
+input {
+    border: 2px solid gray;
+    border-radius: 4px;
+    padding: 5px;
+}
+.list-towns {
+    display: none;
+    height: 75px;
+    overflow-y: auto;
+    position: absolute;
+    font-size: 0.8em;
+    width: 164px;
+    left: 62px;
+    border: 1px solid black;
+    padding-left: 5px;
+}

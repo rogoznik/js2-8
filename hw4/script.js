@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     inputTown.on('keydown', function () {
-        if (/[а-яё]{2,}/i.test(inputTown.val())) {
+        if (inputTown.val().length > 2) {
             var temp = [];
             for (var i in towns) {
                 var regExpTown = new RegExp('^' + inputTown.val(), 'i');
@@ -73,22 +73,27 @@ $(document).ready(function () {
                 }
             }
             ul.innerHTML = '';
-            for (var town in temp) {
-                var li = document.createElement('li');
-                li.innerHTML = temp[town];
-                ul.appendChild(li);
-            }
-            $list.html('');
-            $list.html(ul);
 
-            var $el = $('.list-towns ul li').on('click', function () {
-                inputTown.val($el.html());
-                if ($list.css('display') === 'block') {
-                    $list.hide(400);
+            if (temp.length > 0) {
+                for (var town in temp) {
+                    var li = document.createElement('li');
+                    li.innerHTML = temp[town];
+                    ul.appendChild(li);
                 }
-            });
+                $list.html('');
+                $list.html(ul);
 
-            $list.show(400);
+                $('.list-towns ul li').on('click', function () {
+                    inputTown.val(this.innerText);
+                    $list.hide(400);
+                });
+
+                $list.show(400);
+            }
+        } else {
+            if ($list.css('display') === 'block') {
+                $list.hide(400);
+            }
         }
     });
 

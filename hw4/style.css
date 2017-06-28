@@ -6,16 +6,15 @@ ul {
 li {
     padding: 2px;
 }
-li:hover {
-    cursor: pointer;
-    background: #61AF6A;
-}
 
 .tab {
     display: inline-block;
     background: #61AF6A;
     color: #fff;
     padding: 10px 7px;
+    z-index: 5;
+    position: relative;
+    border: 2px solid #61AF6A;
 }
 .tab:not(.active-tab) {
     cursor: pointer;
@@ -26,12 +25,14 @@ li:hover {
 .active-tab {
     background: #fff;
     color: #000;
+    border-bottom-color: #fff;
 }
 .text {
     position: relative;
     top: -2px;
     width: 300px;
     border: 2px solid #61AF6A;
+    padding: 5px;
 }
 .feedback-form {
     padding: 10px;
@@ -56,5 +57,11 @@ input {
     width: 164px;
     left: 62px;
     border: 1px solid black;
-    padding-left: 5px;
+}
+.list-towns ul li {
+    cursor: pointer;
+    padding: 2px;
+}
+.list-towns ul li:hover {
+    background: #61AF6A;
 }

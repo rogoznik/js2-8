@@ -63,7 +63,7 @@ $(document).ready(function () {
         }
     });
 
-    inputTown.on('keydown', function () {
+    inputTown.on('input', function () {
         if (inputTown.val().length > 2) {
             var temp = [];
             for (var i in towns) {

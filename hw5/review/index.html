@@ -13,7 +13,10 @@
 
             $('.add-review').on('click', function () {
                 review.add(review.reviews.length, $('#text-review').val());
-            })
+            });
+            $(document).on('click', '.btnConfirm',function () {
+                review.reviewConfirm(parseInt($(this).attr('data-review')));
+            });
         });
     </script>
 </head>

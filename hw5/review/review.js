@@ -83,13 +83,23 @@ Review.prototype.refreshModer = function () {
                 class: 'review_data',
                 text: this.reviews[item].text
             });
-            var btnDel = $('<button />', {
+            var btnConfirm = $('<button />', {
                 class: 'btnConfirm',
                 "data-review": this.reviews[item].id_review,
                 text: 'Утвердить'
             });
-            btnDel.appendTo(reviewData);
+            btnConfirm.appendTo(reviewData);
             reviewData.appendTo(moder);
         }
     }
+};
+
+Review.prototype.reviewConfirm = function (idReview) {
+    for (var i in this.reviews) {
+        if (this.reviews[i].id_review === idReview) {
+            this.reviews[i].status = 1;
+        }
+    }
+    console.log(this.reviews);
+    this.refreshModer();
 };

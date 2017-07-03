@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lesson5</title>
+    <title>HW5</title>
     <script src="jquery-3.2.1.min.js"></script>
     <script src="container.js"></script>
     <script src="review.js"></script>
@@ -10,10 +10,6 @@
         $(document).ready(function () {
             var review = new Review();
             review.render('#reviews-wrapper');
-            
-            $('.add-review').on('click', function () {
-                review.add(review.reviews.length, $('#text-review').val());
-            })
         });
     </script>
 </head>

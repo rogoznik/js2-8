@@ -10,6 +10,10 @@
         $(document).ready(function () {
             var review = new Review();
             review.render('#reviews-wrapper');
+
+            $('.add-review').on('click', function () {
+                review.add(review.reviews.length, $('#text-review').val());
+            })
         });
     </script>
 </head>

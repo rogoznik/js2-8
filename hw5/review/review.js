@@ -22,11 +22,11 @@ Review.prototype.render = function (root) {
     for (var i = 0; i < this.reviews.length; i++) {
         if (this.reviews[i].status === 1){
             var reviewData = $('<div />', {
-                className: 'review_data',
+                class: 'review_data',
                 text: this.reviews[i].text
             });
             var btnDel = $('<button />', {
-                className: 'btnDel',
+                class: 'btnDel',
                 "data-review": this.reviews[i].id_review,
                 text: 'Удалить'
             });
@@ -62,7 +62,7 @@ Review.prototype.add = function (idReview, text) {
         "text": text,
         "status": 0
     };
-    
+
     //TODO: Передача нового отзыва на сервер
 
     this.reviews.push(addItem);
@@ -70,7 +70,7 @@ Review.prototype.add = function (idReview, text) {
     this.refreshModer();
 
     $('#text-review').val('');
-    
+
 };
 
 Review.prototype.refreshModer = function () {

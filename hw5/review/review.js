@@ -80,11 +80,11 @@ Review.prototype.refreshModer = function () {
     for (var item in this.reviews) {
         if (this.reviews[item].status === 0) {
             var reviewData = $('<div />', {
-                className: 'review_data',
+                class: 'review_data',
                 text: this.reviews[item].text
             });
             var btnDel = $('<button />', {
-                className: 'btnDel',
+                class: 'btnConfirm',
                 "data-review": this.reviews[item].id_review,
                 text: 'Утвердить'
             });

@@ -1,5 +1,7 @@
-function Review() {
+function Review(root) {
     Container.call(this, 'review');
+
+    this.root = root;
 
     this.reviews = [];
 
@@ -10,7 +12,7 @@ function Review() {
 Review.prototype = Object.create(Container.prototype);
 Review.prototype.constructor = Review;
 
-Review.prototype.render = function (root) {
+Review.prototype.render = function () {
     var reviewsDiv = $('<div />', {
         id: this.id
     });
@@ -19,7 +21,7 @@ Review.prototype.render = function (root) {
         id: this.id + '_items'
     });
 
-    for (var i = 0; i < this.reviews.length; i++) {
+    for (var i in this.reviews) {
         if (this.reviews[i].status === 1){
             var reviewData = $('<div />', {
                 class: 'review_data',
@@ -36,7 +38,7 @@ Review.prototype.render = function (root) {
     }
 
     reviewItemsDiv.appendTo(reviewsDiv);
-    reviewsDiv.appendTo(root);
+    reviewsDiv.appendTo(this.root);
 
 };
 
@@ -50,10 +52,17 @@ Review.prototype.collectReviewItem = function () {
                 this.reviews.push(data.review[item]);
             }
 
+            this.render();
+
         },
         context: this,
         dataType: 'json'
     });
+};
+
+Review.prototype.refresh = function () {
+    $(this.root).empty();
+    this.render();
 };
 
 Review.prototype.add = function (idReview, text) {
@@ -98,8 +107,19 @@ Review.prototype.reviewConfirm = function (idReview) {
     for (var i in this.reviews) {
         if (this.reviews[i].id_review === idReview) {
             this.reviews[i].status = 1;
+            //TODO: изменить на сервере
         }
     }
     console.log(this.reviews);
     this.refreshModer();
+    this.refresh();
+};
+
+Review.prototype.removeItem = function (idReview) {
+    for (var i in this.reviews) {
+        if (this.reviews[i].id_review === idReview) {
+            this.reviews.splice(i);
+        }
+    }
+    this.refresh();
 };

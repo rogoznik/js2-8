@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson5</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="container.js"></script>
+    <script src="review.js"></script>
+    <script>
+        $(document).ready(function () {
+            var review = new Review();
+            review.render('#reviews-wrapper');
+            
+            $('.add-review').on('click', function () {
+                review.add(review.reviews.length, $('#text-review').val());
+            })
+        });
+    </script>
+</head>
+<body>
+<div id="reviews-wrapper"></div>
+
+<br>
+<br>
+
+<div id="form-new-review">
+    <div>
+        <label for="text-review">Добавить отзыв</label><br>
+        <textarea name="" id="text-review" cols="30" rows="10"></textarea>
+    </div>
+    <button class="add-review">Добавить</button>
+</div>
+
+<br>
+<br>
+
+<div id="reviews-for-moder"></div>
+
+</body>
+</html>

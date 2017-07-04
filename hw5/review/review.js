@@ -67,19 +67,21 @@ Review.prototype.refresh = function () {
 
 Review.prototype.add = function (idReview, text) {
     if (/^\s+/i.test(text) === false) {
-        var addItem = {
-            "id_review": idReview,
-            "text": text,
-            "status": 0
-        };
+        if (text.length > 5){
+            var addItem = {
+                "id_review": idReview,
+                "text": text,
+                "status": 0
+            };
 
-        //TODO: Передача нового отзыва на сервер
+            //TODO: Передача нового отзыва на сервер
 
-        this.reviews.push(addItem);
+            this.reviews.push(addItem);
 
-        this.refreshModer();
+            this.refreshModer();
 
-        $('#text-review').val('');
+            $('#text-review').val('');
+        }
     }
 
 };

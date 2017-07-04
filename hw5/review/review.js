@@ -107,6 +107,7 @@ Review.prototype.reviewConfirm = function (idReview) {
     for (var i in this.reviews) {
         if (this.reviews[i].id_review === idReview) {
             this.reviews[i].status = 1;
+            break;
             //TODO: изменить на сервере
         }
     }
@@ -118,7 +119,7 @@ Review.prototype.reviewConfirm = function (idReview) {
 Review.prototype.removeItem = function (idReview) {
     for (var i in this.reviews) {
         if (this.reviews[i].id_review === idReview) {
-            this.reviews.splice(i);
+            this.reviews.splice(i, 1);
         }
     }
     this.refresh();

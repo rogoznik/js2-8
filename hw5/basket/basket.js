@@ -56,7 +56,8 @@ Basket.prototype.collectBasketItems = function () {
 Basket.prototype.add = function (idProduct, quantity, price) {
     var basketItem = {
         "id_product": idProduct,
-        "price": price
+        "price": price,
+        "count": 1
     };
 
     //TODO: Передача нового товара на сервер

@@ -66,7 +66,7 @@ Review.prototype.refresh = function () {
 };
 
 Review.prototype.add = function (idReview, text) {
-    if (text.length >= 5) {
+    if (/^\s+/i.test(text) === false) {
         var addItem = {
             "id_review": idReview,
             "text": text,

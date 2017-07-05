@@ -1,0 +1,52 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    padding: 2px;
+}
+.feedback-form {
+    padding: 10px;
+    display: inline-block;
+}
+.input-wrapper {
+    width: 300px;
+    margin-bottom: 20px;
+}
+input {
+    border: 2px solid gray;
+    border-radius: 4px;
+    padding: 5px;
+}
+.true-validate {
+    border-color: #5fba7d;
+}
+.false-validate {
+    border-color: red;
+}
+.error {
+    border: 2px solid red;
+    padding: 5px;
+    background: indianred;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.list-towns {
+    display: none;
+    height: 75px;
+    overflow-y: auto;
+    position: absolute;
+    font-size: 0.8em;
+    width: 164px;
+    border: 1px solid black;
+    background: white;
+}
+.list-towns ul li {
+    cursor: pointer;
+    padding: 2px;
+}
+.list-towns ul li:hover {
+    background: #61AF6A;
+}

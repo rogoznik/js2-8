@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="script.js"></script>
+
+    <title>HW6</title>
+</head>
+<body>
+    <div class="feedback-form">
+
+        <div class="input-wrapper"><label for="name">Имя: </label><input type="text" id="name"></div>
+        <div class="input-wrapper"><label for="phone">Телефон: </label><input type="text" id="phone" placeholder="+7(000)000-0000"></div>
+        <div class="input-wrapper"><label for="email">E-mail: </label><input type="text" id="email"></div>
+        <div class="input-wrapper"><label for="text"> Текст</label><br>
+            <textarea name="text"  cols="30" rows="10" class="text" id="text"></textarea>
+        </div>
+        <div class="input-wrapper">
+            <label for="town">Город: </label><input type="text" id="town">
+            <div class="list-towns"></div>
+        </div>
+        <button class="btn-send" id="btn-send">Отправить</button>
+    </div>
+    <div id="block-errors"></div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-window.onload = function () {
+$(document).ready(function () {
     function effectBounce($elem) {
         $elem.effect('bounce');
     }
@@ -11,15 +11,12 @@ window.onload = function () {
         error.dialog();
     }
 
-    document.getElementById('btn-send').addEventListener('click', function () {
+    $('#btn-send').on('click', function () {
         var name = $('#name');
         var phone = $('#phone');
         var email = $('#email');
         var town = $('#town');
         var text = $('#text');
-
-        var be = document.getElementById('block-errors');
-        be.innerHTML = '';
 
         if (/^[a-zа-яё]+$/i.test(name.val())) {
             name.attr('class', 'true-validate');
@@ -67,7 +64,7 @@ window.onload = function () {
     });
 
 
-
+//autocomplete для города
     var inputTown = $('#town');
     var $list = $('.list-towns');
 
@@ -109,7 +106,7 @@ window.onload = function () {
                     li.innerHTML = temp[town];
                     ul.appendChild(li);
                 }
-                $list.html('');
+                $list.empty();
                 $list.html(ul);
 
                 $('.list-towns ul li').on('click', function () {
@@ -117,7 +114,11 @@ window.onload = function () {
                     $list.hide();
                 });
 
-                $list.css('left', inputTown.position().left);
+                $list.css({
+                    'left': inputTown.position().left,
+                    'top': inputTown.outerHeight()
+                });
+
 
 
                 $list.show();
@@ -128,4 +129,5 @@ window.onload = function () {
             }
         }
     });
-};
+
+});

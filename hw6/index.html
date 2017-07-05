@@ -15,12 +15,11 @@
 </head>
 <body>
     <div class="feedback-form">
-
         <div class="input-wrapper"><label for="name">Имя: </label><input type="text" id="name"></div>
         <div class="input-wrapper"><label for="phone">Телефон: </label><input type="text" id="phone" placeholder="+7(000)000-0000"></div>
         <div class="input-wrapper"><label for="email">E-mail: </label><input type="text" id="email"></div>
-        <div class="input-wrapper"><label for="text"> Текст</label><br>
-            <textarea name="text"  cols="30" rows="10" class="text" id="text"></textarea>
+        <div class="input-wrapper"><label for="text">Текст: </label><br>
+            <textarea name="text" cols="30" rows="10" class="text" id="text"></textarea>
         </div>
         <div class="input-wrapper">
             <label for="town">Город: </label><input type="text" id="town">
@@ -28,6 +27,9 @@
         </div>
         <button class="btn-send" id="btn-send">Отправить</button>
     </div>
-    <div id="block-errors"></div>
+
+    <div class="container">
+        <ul class="carousel"></ul>
+    </div>
 </body>
 </html>

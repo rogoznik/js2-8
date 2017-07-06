@@ -11,7 +11,9 @@ ul {
     padding: 10px;
     display: inline-block;
     background-color: cadetblue;
+    margin-bottom: 20px;
 }
+
 .input-wrapper {
     width: 255px;
     margin-bottom: 20px;

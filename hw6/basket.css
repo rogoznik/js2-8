@@ -1,10 +1,19 @@
 .good {
     background-color: #61AF6A;
-    width: 200px;
-    height: 100px;
+    padding: 5px;
+    display: inline-block;
 }
 #basket_wrapper {
     background-color: #dad55e;
-    height: 300px;
-    width: 300px;
+    min-height: 100px;
+    margin-top: 50px;
+}
+
+.basket-goods__item {
+    padding: 5px;
+    margin-top: 10px;
+    background-color: chocolate;
+}
+.delme {
+    margin-left: 10px;
 }

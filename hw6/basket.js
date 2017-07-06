@@ -8,13 +8,14 @@ Container.prototype.render = function () {
     return this.htmlCode;
 };
 
-function Basket() {
+function Basket(root) {
     Container.call(this, 'basket');
 
     this.countGoods = 0;
     this.amount = 0;
 
     this.basketItems = [];
+    this.root = root;
     this.collectBasketItems();
 }
 
@@ -24,48 +25,69 @@ Basket.prototype.constructor = Basket;
 Basket.prototype.render = function (root) {
     var basketDiv = $('<div />', {
         id: this.id,
-        text: 'Корзина'
+        text: 'Корзина (нажмите кнопку "Купить" или перетащите товар сюда)'
     });
 
     var basketItemsDiv = $('<div />', {
         id: this.id + '_items'
     });
 
+    var basketData = $('<div />', {
+        id: 'basket_data'
+    });
+
+    basketData.append('<p>Всего товаров: ' + this.countGoods + '</p>');
+    basketData.append('<p>Сумма: ' + this.amount + '</p>');
+
+    basketData.appendTo(basketItemsDiv);
+
     basketItemsDiv.appendTo(basketDiv);
     basketDiv.appendTo(root);
+
+    var basketGoods = $('<div />', {
+        class: 'basket-goods'
+    });
+
+    for (var i in this.basketItems){
+        var basketGoodsItem = $('<div />', {
+            class: 'basket-goods__item',
+            text: this.basketItems[i].name + ' цена: ' + this.basketItems[i].price + ' руб. ' + 'кол-во: ' +
+                this.basketItems[i].count + ' сумма: ' + (this.basketItems[i].price * this.basketItems[i].count)
+        });
+        var delme = $('<button />', {
+            class: 'delme',
+            text: 'Удалить',
+            'data-product': this.basketItems[i].id_product
+        });
+        delme.appendTo(basketGoodsItem);
+        basketGoodsItem.appendTo(basketGoods);
+    }
+
+    basketGoods.appendTo(root);
 };
 
 Basket.prototype.collectBasketItems = function () {
-    var appendId = '#' + this.id + '_items';
-    //var self = this;
     $.get({
         url: 'basket.json',
         success: function (data) {
-            var basketData = $('<div />', {
-                id: 'basket_data'
-            });
-
             this.countGoods = data.basket.length;
             this.amount = data.amount;
-
-            basketData.append('<p>Всего товаров: ' + this.countGoods + '</p>');
-            basketData.append('<p>Сумма: ' + this.amount + '</p>');
-
-            basketData.appendTo(appendId);
 
             for(var item in data.basket)
             {
                 this.basketItems.push(data.basket[item]);
             }
+            this.render(this.root);
         },
         context: this,
         dataType: 'json'
     });
 };
 
-Basket.prototype.add = function (idProduct, quantity, price) {
+Basket.prototype.add = function (idProduct, name, quantity, price) {
     var basketItem = {
         "id_product": idProduct,
+        "name": name,
         "price": price,
         "count": quantity
     };
@@ -96,10 +118,9 @@ Basket.prototype.add = function (idProduct, quantity, price) {
 };
 
 Basket.prototype.refresh = function () {
-    var basketDataDiv = $('#basket_data');
-    basketDataDiv.empty();
-    basketDataDiv.append('<p>Всего товаров: ' + this.countGoods + ' </p>');
-    basketDataDiv.append('<p>Сумма: ' + this.amount + ' </p>');
+    var $root = $('#basket_wrapper');
+    $root.empty();
+    this.render('#' + $root.attr('id'));
 };
 
 
@@ -107,14 +128,17 @@ Basket.prototype.refresh = function () {
 
 Basket.prototype.removeItem = function (idProduct) {
     var price = 0;
+    var isDel = false;
     for (var item in this.basketItems) {
         if (this.basketItems[item].id_product === idProduct) {
             price = this.basketItems[item].price;
             if (this.basketItems[item].count > 1) {
                 --this.basketItems[item].count;
+                isDel = true;
                 break;
             } else {
                 this.basketItems.splice(item, 1);
+                isDel = true;
                 break;
             }
         }
@@ -123,8 +147,11 @@ Basket.prototype.removeItem = function (idProduct) {
     //TODO: Передать на сервер удаление товара
 
     if (this.countGoods > 0) {
-        this.countGoods--;
-        this.amount -= price;
+        if (isDel){
+            this.countGoods--;
+            this.amount -= price;
+        }
+
     }
     this.refresh();
 };

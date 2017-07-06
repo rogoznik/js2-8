@@ -3,6 +3,7 @@
   "basket": [
     {
       "id_product": 123,
+      "name": "Товар №123",
       "price": 150,
       "count": 1
     }

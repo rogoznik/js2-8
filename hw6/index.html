@@ -5,11 +5,13 @@
 
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="basket.css">
 
     <script src="jquery-3.2.1.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="carousel.js"></script>
     <script src="script.js"></script>
+    <script src="basket.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -17,6 +19,36 @@
                 btnNext: '.next',
                 btnPrev: '.prev',
                 auto: 1000
+            });
+
+            var basket = new Basket('#basket_wrapper');
+
+            $('.buyme').on('click', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                var name = $(this).parent().find('.good-name').text();
+                var quantity = 1;
+                var price = parseInt($(this).parent().find('.product-price').text());
+
+                basket.add(idProduct, name, quantity, price);
+            });
+
+            $(document).on('click', '.delme', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                basket.removeItem(idProduct);
+            });
+
+            $('.good').draggable({
+                revert: true,
+                cursor: 'move'
+            });
+            $('#basket_wrapper').droppable({
+                drop: function (event, ui) {
+                    var idProduct = parseInt(ui.draggable.find('.buyme').attr('data-product'));
+                    var name = ui.draggable.find('.good-name').text();
+                    var quantity = 1;
+                    var price = parseInt(ui.draggable.find('.product-price').text());
+                    basket.add(idProduct, name, quantity, price);
+                }
             });
         });
     </script>
@@ -54,5 +86,19 @@
         </div>
         <button class="btn-send" id="btn-send">Отправить</button>
     </div>
+    <div></div>
+
+    <div class="good">
+        <p class="good-name">Товар №123</p>
+        <p>Цена: <span class="product-price">150</span> руб.</p>
+        <button class="buyme" data-product="123">Купить</button>
+    </div>
+
+    <div class="good">
+        <p class="good-name">Товар №125</p>
+        <p>Цена: <span class="product-price">200</span> руб.</p>
+        <button class="buyme" data-product="125">Купить</button>
+    </div>
+    <div id="basket_wrapper"></div>
 </body>
 </html>

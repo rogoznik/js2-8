@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="basket.css">
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="basket.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var basket = new Basket();
+            basket.render('#basket_wrapper');
+
+            $('.buyme').on('click', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                var quantity = 1;
+                var price = parseInt($(this).parent().find('.product-price').text());
+
+                basket.add(idProduct, quantity, price);
+            });
+
+            $('.delme').on('click', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                basket.removeItem(idProduct);
+            });
+
+            $('.good').draggable();
+            $('#basket_wrapper').droppable({
+                drop: function (event, ui) {
+                    var idProduct = parseInt($('.buyme').attr('data-product'));
+                    var quantity = 1;
+                    var price = parseInt($('.buyme').parent().find('.product-price').text());
+                    basket.add(idProduct, quantity, price);
+                }
+            });
+        });
+    </script>
+
+    <title>Droppable Basket</title>
+</head>
+<body>
+    <div id="basket_wrapper" class="ui-widget-header"></div>
+    <div class="ui-widget-content good">
+        <p>Товар №123</p>
+        <p>Цена: <span class="product-price">150</span> руб.</p>
+        <button class="buyme" data-product="123">Купить</button>
+        <button class="delme" data-product="123">Удалить</button>
+    </div>
+
+    <div class="ui-widget-content good">
+        <p>Товар №125</p>
+        <p>Цена: <span class="product-price">200</span> руб.</p>
+        <button class="buyme" data-product="125">Купить</button>
+        <button class="delme" data-product="125">Удалить</button>
+    </div>
+</body>
+</html>

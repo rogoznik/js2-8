@@ -1,11 +1,12 @@
+.header {
+    margin-bottom: 50px;
+}
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-li {
-    padding: 2px;
-}
+
 .feedback-form {
     padding: 10px;
     display: inline-block;
@@ -51,10 +52,18 @@ input {
 }
 .list-towns ul li {
     cursor: pointer;
+    padding: 2px;
 }
 .list-towns ul li:hover {
     background: #61AF6A;
 }
 .btn-send {
     width: 100%;
+}
+.carousel li {
+    float: left;
+    width: 90px;
+    height: 90px;
+    background-color: #777620;
+    margin-right: 2px;
 }

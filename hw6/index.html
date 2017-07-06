@@ -4,16 +4,43 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="style.css">
 
     <script src="jquery-3.2.1.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="carousel.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.container-carousel').carousel({
+                btnNext: '.next',
+                btnPrev: '.prev',
+                auto: 1000
+            });
+        });
+    </script>
 
     <title>HW6</title>
 </head>
 <body>
+    <header class="header">
+        <div class="container-carousel">
+            <ul class="carousel">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+            </ul>
+            <button class="prev" id="prev"><</button>
+            <button class="next" id="next">></button>
+        </div>
+    </header>
+
     <div class="feedback-form">
         <div class="input-wrapper"><label for="name">Имя: </label><input type="text" id="name"></div>
         <div class="input-wrapper"><label for="phone">Телефон: </label><input type="text" id="phone" placeholder="+7(000)000-0000"></div>
@@ -26,10 +53,6 @@
             <div class="list-towns"></div>
         </div>
         <button class="btn-send" id="btn-send">Отправить</button>
-    </div>
-
-    <div class="container">
-        <ul class="carousel"></ul>
     </div>
 </body>
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.container-carousel').carousel({
+                btnNext: '.next',
+                btnPrev: '.prev',
+                auto: 1000
+            });
+
+            var basket = new Basket('#basket_wrapper');
+
+            $('.buyme').on('click', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                var name = $(this).parent().find('.good-name').text();
+                var quantity = 1;
+                var price = parseInt($(this).parent().find('.product-price').text());
+
+                basket.add(idProduct, name, quantity, price);
+            });
+
+            $(document).on('click', '.delme', function () {
+                var idProduct = parseInt($(this).attr('data-product'));
+                basket.removeItem(idProduct);
+            });
+
+            $('.good').draggable({
+                revert: true,
+                cursor: 'move'
+            });
+            $('#basket_wrapper').droppable({
+                drop: function (event, ui) {
+                    var idProduct = parseInt(ui.draggable.find('.buyme').attr('data-product'));
+                    var name = ui.draggable.find('.good-name').text();
+                    var quantity = 1;
+                    var price = parseInt(ui.draggable.find('.product-price').text());
+                    basket.add(idProduct, name, quantity, price);
+                }
+            });
+        });
+    </script>
+
+    <title>HW6</title>
+</head>
+<body>
+    //= template/header.html
+
+    <div class="feedback-form">
+        <div class="input-wrapper"><label for="name">Имя: </label><input type="text" id="name"></div>
+        <div class="input-wrapper"><label for="phone">Телефон: </label><input type="text" id="phone" placeholder="+7(000)000-0000"></div>
+        <div class="input-wrapper"><label for="email">E-mail: </label><input type="text" id="email"></div>
+        <div class="input-wrapper"><label for="text">Текст: </label><br>
+            <textarea name="text" cols="30" rows="10" class="text" id="text"></textarea>
+        </div>
+        <div class="input-wrapper">
+            <label for="town">Город: </label><input type="text" id="town">
+            <div class="list-towns"></div>
+        </div>
+        <button class="btn-send" id="btn-send">Отправить</button>
+    </div>
+    <div></div>
+
+    <div class="good">
+        <p class="good-name">Товар №123</p>
+        <p>Цена: <span class="product-price">150</span> руб.</p>
+        <button class="buyme" data-product="123">Купить</button>
+    </div>
+
+    <div class="good">
+        <p class="good-name">Товар №125</p>
+        <p>Цена: <span class="product-price">200</span> руб.</p>
+        <button class="buyme" data-product="125">Купить</button>
+    </div>
+    <div id="basket_wrapper"></div>
+</body>
+</html>

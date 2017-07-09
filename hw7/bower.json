@@ -1,0 +1,21 @@
+{
+  "name": "hw7",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "rogoznik <nikrogoz@yandex.ru>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/rogoznik/js2-8",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1"
+  }
+}
